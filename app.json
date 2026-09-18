@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Cine Journal",
+    "slug": "movie-rental-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#14181c"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": { "supportsTablet": true },
+    "android": {
+      "adaptiveIcon": { "backgroundColor": "#14181c" }
+    },
+    "web": { "bundler": "metro" }
+  }
+}
