@@ -11,7 +11,7 @@ export default function CartItem({ item, onIncrease, onDecrease, onRemove }) {
       <View style={styles.info}>
         <Text style={styles.title} numberOfLines={1}>{movie.title}</Text>
         <Text style={styles.subtitle}>{movie.year} · {movie.category}</Text>
-        <Text style={styles.price}>${movie.price.toFixed(2)}</Text>
+        <Text style={styles.price}>R{movie.price}</Text>
 
         <View style={styles.quantityRow}>
           <TouchableOpacity style={styles.qtyButton} onPress={onDecrease}>

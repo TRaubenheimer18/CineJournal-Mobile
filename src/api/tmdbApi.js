@@ -14,7 +14,7 @@ function mapCategory(movie) {
   return "Other";
 }
 
-const RENTAL_PRICE = 3.99;
+const RENTAL_PRICE = 50;
 
 function normalizeMovie(m) {
   return {

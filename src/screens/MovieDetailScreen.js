@@ -157,7 +157,7 @@ export default function MovieDetailScreen({ route, navigation }) {
                 disabled={inCart}
               >
                 <Text style={styles.rentButtonText}>
-                  {inCart ? "✓ In Cart" : `🛒 Rent Film · $${movie.price.toFixed(2)}`}
+                  {inCart ? "✓ In Cart" : `🛒 Rent Film · R${movie.price}`}
                 </Text>
               </TouchableOpacity>
               {rentMessage && <Text style={styles.rentMessage}>{rentMessage}</Text>}

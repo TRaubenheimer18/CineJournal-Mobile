@@ -16,7 +16,7 @@ export default function CartScreen({ navigation }) {
  const handleCheckout = async () => {
   try {
     await rentalApi.checkout(items, user.email);
-    Alert.alert("Success", `Rented ${totalItems} title(s) for $${totalPrice.toFixed(2)}.`);
+    Alert.alert("Success", `Rented ${totalItems} title(s) for R${totalPrice}.`);
     clearCart();
   } catch (err) {
     Alert.alert("Checkout failed", err.message);
@@ -68,11 +68,11 @@ export default function CartScreen({ navigation }) {
       <View style={styles.summary}>
         <View style={styles.summaryRow}>
           <Text style={styles.summaryLabel}>Items ({totalItems})</Text>
-          <Text style={styles.summaryValue}>${totalPrice.toFixed(2)}</Text>
+          <Text style={styles.summaryValue}>R{totalPrice}</Text>
         </View>
         <View style={styles.summaryRow}>
           <Text style={styles.totalLabel}>Total</Text>
-          <Text style={styles.totalValue}>${totalPrice.toFixed(2)}</Text>
+          <Text style={styles.totalValue}>R{totalPrice}</Text>
         </View>
         <TouchableOpacity style={styles.checkoutButton} onPress={handleCheckout}>
           <Text style={styles.checkoutButtonText}>Checkout</Text>
