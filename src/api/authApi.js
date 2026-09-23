@@ -1,4 +1,4 @@
-const EXPRESS_BASE_URL = "http://10.0.0.106:5001"; // same IP you used for rentalApi
+const EXPRESS_BASE_URL = "http://localhost:5001"; // same IP you used for rentalApi
 
 async function request(path, options) {
   const res = await fetch(`${EXPRESS_BASE_URL}${path}`, {
