@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
-  Modal, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator,
+  KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors, spacing, radius, typography } from "../theme/colors";
@@ -62,6 +63,12 @@ export default function LandingScreen() {
   };
 
   return (
+    <ImageBackground
+      source={require("../../assets/images/CineJournalCover.jpeg")}
+      style={styles.bgImage}
+      resizeMode="cover"
+    >
+      <View style={styles.overlay} />
     <View style={[styles.landingPage, { paddingTop: insets.top + spacing.sm }]}>
       <View style={styles.landingHeader}>
         <View style={styles.authButtons}>
@@ -89,17 +96,13 @@ export default function LandingScreen() {
         <Text style={styles.footerText}>The social network for film lovers.</Text>
       </View>
 
-      <Modal
-        visible={showModal}
-        transparent
-        animationType="fade"
-        onRequestClose={closeModal}
-      >
-        <View style={styles.modalBackdrop}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
-            style={styles.modalWrapper}
-          >
+      {showModal && (
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          style={styles.modalBackdrop}
+          pointerEvents="box-none"
+        >
+          <View style={styles.modalWrapper}>
             <ScrollView
               contentContainerStyle={styles.modalCard}
               keyboardShouldPersistTaps="handled"
@@ -177,17 +180,24 @@ export default function LandingScreen() {
                 )}
               </View>
             </ScrollView>
-          </KeyboardAvoidingView>
-        </View>
-      </Modal>
+          </View>
+        </KeyboardAvoidingView>
+      )}
     </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  bgImage: {
+    flex: 1,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(14,18,22,0.78)",
+  },
   landingPage: {
     flex: 1,
-    backgroundColor: colors.background, // RN has no radial-gradient without extra libs — flat bg is the closest match
     justifyContent: "space-between",
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.sm,
@@ -235,10 +245,11 @@ const styles = StyleSheet.create({
   footerText: { color: colors.textMuted, fontSize: 13 },
 
   modalBackdrop: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.85)",
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.6)",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 10,
   },
   modalWrapper: { width: "88%", maxWidth: 380 },
   modalCard: {
