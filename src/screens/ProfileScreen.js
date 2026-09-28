@@ -32,7 +32,6 @@ export default function ProfileScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
-  // Helper to retrieve token either from auth context, AsyncStorage, or localStorage
   const getAuthToken = useCallback(async () => {
     if (token) return token;
     try {
