@@ -1,4 +1,4 @@
-const EXPRESS_BASE_URL = "http://localhost:5001"; 
+const EXPRESS_BASE_URL = "http://localhost:5001";
 
 async function request(path, options) {
   const res = await fetch(`${EXPRESS_BASE_URL}${path}`, {

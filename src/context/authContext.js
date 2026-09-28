@@ -4,8 +4,8 @@ import { authApi } from "../api/authApi";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);   // { email, username }
-  const [token, setToken] = useState(null); // JWT from /login
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

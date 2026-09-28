@@ -23,7 +23,7 @@ export default function SearchScreen({ navigation }) {
         setResults(data);
         setLoading(false);
       });
-    }, 300); // debounce
+    }, 300);
     return () => clearTimeout(timeout);
   }, [query]);
 

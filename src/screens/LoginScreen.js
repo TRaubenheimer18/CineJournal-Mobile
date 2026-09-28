@@ -14,8 +14,6 @@ export default function LoginScreen({ navigation }) {
   const handleLogin = async () => {
     if (!email.trim() || !password) return;
     await login(email.trim(), password);
-    // If login succeeds, isAuthenticated flips to true and RootNavigator
-    // automatically swaps to the main app — nothing else to do here.
   };
 
   return (

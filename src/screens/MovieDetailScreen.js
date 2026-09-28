@@ -41,7 +41,6 @@ export default function MovieDetailScreen({ route, navigation }) {
   const setStarRating = (star) => setRating((prev) => (prev === star ? 0 : star));
 
   const openLogModal = () => {
-    // Hook this up to a real review/log screen later.
     Alert.alert("Review or log", "This will open your review/log screen once it's built.");
   };
 
@@ -51,7 +50,6 @@ export default function MovieDetailScreen({ route, navigation }) {
     setTimeout(() => setRentMessage(null), 3000);
   };
 
-  // --- Loading / error states ---
   if (isLoading) {
     return (
       <View style={styles.statusBlock}>
@@ -78,7 +76,6 @@ export default function MovieDetailScreen({ route, navigation }) {
 
   return (
     <ScrollView style={styles.screen} showsVerticalScrollIndicator={false}>
-      {/* Backdrop */}
       <View style={styles.backdropWrapper}>
         <Image source={{ uri: movie.poster }} style={styles.backdropImg} />
         <View style={styles.backdropGradient} />
@@ -88,14 +85,12 @@ export default function MovieDetailScreen({ route, navigation }) {
       </View>
 
       <View style={styles.mainContent}>
-        {/* Poster */}
         <View style={styles.posterCol}>
           <View style={styles.posterCard}>
             <Image source={{ uri: movie.poster }} style={styles.posterImg} />
           </View>
         </View>
 
-        {/* Info */}
         <View style={styles.infoCol}>
           <Text style={styles.movieTitle}>{movie.title}</Text>
           <View style={styles.movieMeta}>
@@ -105,7 +100,6 @@ export default function MovieDetailScreen({ route, navigation }) {
           <Text style={styles.overview}>{movie.synopsis}</Text>
         </View>
 
-        {/* Actions */}
         <View style={styles.actionsCol}>
           <View style={styles.actionCard}>
             <View style={styles.actionTopRow}>

@@ -1,9 +1,7 @@
-// src/api/tmdbConfig.js
 export const TMDB_API_KEY = process.env.EXPO_PUBLIC_TMDB_API_KEY;
 export const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 export const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-// TMDB's genre IDs are fixed/stable — mapping the ones matching your app's categories
 export const GENRE_MAP = {
   Action: 28,
   Drama: 18,

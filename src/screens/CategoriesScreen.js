@@ -5,15 +5,13 @@ import Header from "../components/Header";
 import { movieApi } from "../api/movieApi";
 
 export default function CategoriesScreen({ navigation }) {
-  const [categoryData, setCategoryData] = useState([]); // [{ name, count, thumbnail }]
+  const [categoryData, setCategoryData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
 
     movieApi.getCategories().then(async (cats) => {
-      // Fetch the exact same results CategoryMoviesScreen will show for each
-      // category, so the tile's count always matches what you see after tapping in.
       const results = await Promise.all(
         cats.map((cat) => movieApi.getMoviesByCategory(cat))
       );

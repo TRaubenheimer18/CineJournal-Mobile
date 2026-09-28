@@ -55,7 +55,7 @@ export default function LandingScreen() {
     } else {
       const success = await login(email.trim(), password);
       if (success) {
-        closeModal(); // isAuthenticated flips true -> RootNavigator swaps to the main app
+        closeModal();
       } else {
         setMessage("Invalid email or password.");
       }

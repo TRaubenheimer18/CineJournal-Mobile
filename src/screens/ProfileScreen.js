@@ -1,13 +1,19 @@
-import React, { useEffect, useState, useCallback } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useCallback, useEffect, useState } from "react";
 import {
-  View, Text, FlatList, Image, TouchableOpacity, StyleSheet,
-  ActivityIndicator, RefreshControl,
+  ActivityIndicator,
+  FlatList, Image,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors, spacing, radius, typography } from "../theme/colors";
-import { useAuth } from "../context/authContext";
 import { profileApi } from "../api/profileApi";
 import { TMDB_IMAGE_BASE_URL } from "../api/tmdbConfig";
+import { useAuth } from "../context/authContext";
+import { colors, radius, spacing, typography } from "../theme/colors";
 
 function formatDate(dateString, style = "short") {
   if (!dateString) return "";
@@ -18,24 +24,39 @@ function formatDate(dateString, style = "short") {
 }
 
 export default function ProfileScreen({ navigation }) {
-  const { user, logout } = useAuth();
+  const { user, token, logout } = useAuth();
   const insets = useSafeAreaInsets();
   const [profile, setProfile] = useState(null);
-  const [activeTab, setActiveTab] = useState("rentals"); // "rentals" | "history"
+  const [activeTab, setActiveTab] = useState("rentals");
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
+  // Helper to retrieve token either from auth context, AsyncStorage, or localStorage
+  const getAuthToken = useCallback(async () => {
+    if (token) return token;
+    try {
+      const stored = await AsyncStorage.getItem("userToken");
+      if (stored) return stored;
+    } catch (e) {
+    }
+    if (typeof localStorage !== "undefined") {
+      return localStorage.getItem("token") || localStorage.getItem("userToken");
+    }
+    return null;
+  }, [token]);
+
   const loadProfile = useCallback(async () => {
     if (!user?.email) return;
     try {
-      const data = await profileApi.getProfile(user.email);
+      const authToken = await getAuthToken();
+      const data = await profileApi.getProfile(user.email, authToken);
       setProfile(data);
       setError(null);
     } catch (err) {
       setError(err.message);
     }
-  }, [user]);
+  }, [user, getAuthToken]);
 
   useEffect(() => {
     setLoading(true);
@@ -50,8 +71,9 @@ export default function ProfileScreen({ navigation }) {
 
   const handleReturn = async (rentalId) => {
     try {
-      await profileApi.returnRental(rentalId);
-      await loadProfile(); // refresh so the item moves to Rental History
+      const authToken = await getAuthToken();
+      await profileApi.returnRental(rentalId, authToken);
+      await loadProfile();
     } catch (err) {
       setError(err.message);
     }
@@ -88,7 +110,6 @@ export default function ProfileScreen({ navigation }) {
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accentOrange} />}
       ListHeaderComponent={
         <>
-          {/* Header: avatar, username/email, stats */}
           <View style={styles.profileHeader}>
             <View style={styles.headerLeft}>
               <View style={styles.avatarCircle}>
@@ -116,7 +137,6 @@ export default function ProfileScreen({ navigation }) {
             </View>
           </View>
 
-          {/* Tabs */}
           <View style={styles.profileNav}>
             <TouchableOpacity onPress={() => setActiveTab("rentals")} style={styles.navButton}>
               <Text style={[styles.navButtonText, activeTab === "rentals" && styles.navButtonTextActive]}>
