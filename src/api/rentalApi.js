@@ -1,5 +1,4 @@
-// src/api/rentalApi.js
-const EXPRESS_BASE_URL = "http://10.0.0.106:5001";
+const EXPRESS_BASE_URL = "http://localhost:5001";
 
 export const rentalApi = {
   checkout: async (items, userEmail) => {

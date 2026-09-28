@@ -1,4 +1,4 @@
-const EXPRESS_BASE_URL = "http://10.0.0.106:5001"; // same IP as authApi/rentalApi
+const EXPRESS_BASE_URL = "http://localhost:5001"; // same IP as authApi/rentalApi
 
 export const profileApi = {
   getProfile: async (email) => {
